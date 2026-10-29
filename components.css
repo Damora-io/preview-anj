@@ -1,0 +1,301 @@
+/* Damora preview design system: components (v2, 2026-10-28)
+   Needs tokens.css first. Mobile first. No framework, no build step.
+   Blocks: base, .wrap, type (.eyebrow .display .h2 .lede .giant), .btn, .card,
+   .stack (sticky card sequence), .stat, .reviews, .stars-big, .callbar, .chip,
+   .frame (photo slot), .vcard (vehicle card), .sheet (detail dialog), .grain,
+   .reveal (motion), .top (header with .mark and .nav), .end (closing plate), .foot. */
+
+/* ---- base ---- */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-padding-top: var(--header-h); }
+html, body { overflow-x: clip; }   /* phones never slide sideways (rule 12) */
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  font-stretch: calc(var(--wdth-body) * 1%);
+  -webkit-font-smoothing: antialiased;
+  padding-bottom: var(--callbar-h);   /* room for the sticky call bar */
+  transition: background-color var(--dur-2) var(--ease-out), color var(--dur-2) var(--ease-out);
+}
+img, svg { display: block; max-width: 100%; }
+a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 0.15em; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: var(--r-1); }
+::selection { background: var(--accent); color: var(--accent-ink); }
+
+.wrap { width: 100%; max-width: var(--max); margin-inline: auto; padding-inline: var(--gutter); }
+.section { padding-block: var(--s-8); }
+@media (min-width: 760px) { .section { padding-block: var(--s-9); } }
+.section + .section { border-top: 1px solid var(--line); }
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ---- grain: a static noise tile over a block, never a live filter ---- */
+.grain { position: relative; }
+.grain::after { content: ""; position: absolute; inset: 0; background-image: var(--grain); background-size: 160px 160px; opacity: var(--grain-a); pointer-events: none; z-index: 0; }
+.grain > * { position: relative; z-index: 1; }
+
+/* ---- type ---- */
+.eyebrow {
+  margin: 0 0 var(--s-4);
+  font-size: var(--fs-small);
+  font-weight: 600;
+  letter-spacing: var(--track-caps);
+  text-transform: uppercase;
+  color: var(--ink-3);
+  display: flex; align-items: center; gap: var(--s-3);
+}
+.eyebrow::before { content: ""; width: 22px; height: 3px; background: var(--accent); border-radius: 2px; flex: none; }
+.display, .h2, .h3, .giant {
+  margin: 0;
+  font-stretch: calc(var(--wdth-display) * 1%);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--track-display);
+  text-wrap: balance;
+}
+.display { font-size: var(--fs-display); font-weight: 800; }
+.giant { font-size: var(--fs-giant); font-weight: 800; font-stretch: 78%; line-height: 0.82; letter-spacing: -0.05em; font-variant-numeric: tabular-nums; }
+.h2 { font-size: var(--fs-h2); font-weight: 800; }
+.h3 { font-size: var(--fs-h3); font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; }
+.display em, .h2 em { font-style: normal; color: var(--accent); }
+.lede { font-size: var(--fs-lede); line-height: 1.35; color: var(--ink-2); max-width: var(--measure); margin: var(--s-5) 0 0; text-wrap: pretty; }
+.meta { color: var(--ink-3); font-size: var(--fs-small); }
+
+/* ---- buttons ---- */
+.btn {
+  position: relative; overflow: hidden; isolation: isolate;
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--s-3);
+  min-height: 56px; padding: 0 var(--s-6);
+  border-radius: var(--r-pill); border: 2px solid transparent;
+  font-weight: 700; font-size: 1.05rem; letter-spacing: -0.01em; text-decoration: none; white-space: nowrap;
+  cursor: pointer; -webkit-tap-highlight-color: transparent;
+  transition: transform var(--dur-1) var(--ease-out), background-color var(--dur-1), color var(--dur-1), border-color var(--dur-1);
+}
+.btn svg { width: 22px; height: 22px; flex: none; }
+.btn:active { transform: scale(0.97); }
+.btn-primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.btn-ghost { background: transparent; color: var(--ink); border-color: var(--line-strong); }
+.btn-ghost:hover { border-color: var(--ink); }
+.btn-ink { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+/* light sweep on hover, pointer devices only */
+@media (hover: hover) and (pointer: fine) {
+  .btn-primary::after {
+    content: ""; position: absolute; inset: 0; z-index: -1;
+    background: linear-gradient(115deg, transparent 30%, rgba(255, 255, 255, 0.45) 50%, transparent 70%);
+    transform: translateX(-120%);
+  }
+  .btn-primary:hover::after { transition: transform 0.7s var(--ease-out); transform: translateX(120%); }
+}
+
+/* ---- cards ---- */
+.card {
+  background: var(--plate); color: var(--plate-ink);
+  border: 1px solid var(--line); border-radius: var(--r-2);
+  padding: var(--s-5);
+  box-shadow: var(--shadow);
+}
+.card-num { font-stretch: 88%; font-weight: 800; font-size: 0.95rem; letter-spacing: 0.08em; color: var(--accent); margin: 0 0 var(--s-5); }
+.card .h3 { margin-bottom: var(--s-3); }
+.card p { margin: 0; color: var(--ink-2); }
+.card-accent { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.card-accent p, .card-accent .card-num { color: var(--accent-ink); }
+.grid { display: grid; gap: var(--s-4); }
+@media (min-width: 640px) { .grid-2 { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 980px) { .grid-4 { grid-template-columns: repeat(4, 1fr); } .grid-3 { grid-template-columns: repeat(3, 1fr); } }
+
+/* ---- the stack: cards that pin under the header and pile up as you scroll.
+   Pure CSS (position: sticky), so it costs nothing per frame. --k is the card's
+   index; each one sits 14 px lower than the last so the pile reads. ---- */
+.stack { display: grid; gap: var(--s-4); }
+.stack-card { position: sticky; top: calc(var(--header-h) + var(--k, 0) * 14px); }
+html.reduced .stack-card { position: relative; top: auto; }
+@media (prefers-reduced-motion: reduce) { .stack-card { position: relative; top: auto; } }
+
+/* ---- stat tiles ---- */
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.stat { padding: var(--s-5) var(--s-3); border-right: 1px solid var(--line); min-width: 0; }
+.stat:last-child { border-right: 0; }
+.stat-n {
+  display: block; font-size: var(--fs-stat); font-weight: 800; font-stretch: 82%;
+  line-height: 0.95; letter-spacing: -0.04em; font-variant-numeric: tabular-nums;
+}
+.stat-n sup { font-size: 0.4em; vertical-align: top; top: 0.25em; position: relative; color: var(--accent); }
+.stat-l { display: block; margin-top: var(--s-2); font-size: var(--fs-small); color: var(--ink-3); line-height: 1.25; }
+@media (min-width: 760px) { .stat { padding: var(--s-6) var(--s-5); } }
+
+/* ---- review strip (proof) ---- */
+.reviews { display: flex; align-items: center; gap: var(--s-3); flex-wrap: wrap; }
+.stars { display: inline-flex; gap: 2px; color: var(--accent); }
+.stars svg { width: 20px; height: 20px; }
+.reviews-n { font-weight: 800; font-size: 1.35rem; letter-spacing: -0.02em; font-stretch: 88%; }
+.reviews a { color: var(--ink-2); }
+
+/* big stars that fill to the rating (--fill, e.g. 96%) once seen */
+.stars-big { position: relative; display: inline-grid; width: max-content; }
+.stars-big .stars-row { display: inline-flex; gap: 4px; }
+.stars-big .stars-row svg { width: clamp(28px, 8vw, 48px); height: clamp(28px, 8vw, 48px); }
+.stars-base { color: var(--ink); opacity: 0.16; }
+.stars-fill { position: absolute; inset: 0; overflow: hidden; width: var(--fill, 100%); color: var(--accent); transition: width 1.3s var(--ease-out) 0.25s; }
+.reveal:not(.in) .stars-fill { width: 0; }
+html.reduced .stars-fill, html.no-js .stars-fill { width: var(--fill, 100%) !important; transition: none; }
+
+/* ---- chips ---- */
+.chip { display: inline-flex; align-items: center; gap: var(--s-2); padding: var(--s-1) var(--s-3); border: 1px solid var(--line-strong); border-radius: var(--r-pill); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; line-height: 1.6; white-space: nowrap; }
+.chip-accent { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.chip-sample { background: var(--accent-soft); border-color: transparent; color: var(--ink-2); }
+
+/* ---- photo frame: the slot a real photo drops into. Empty, it still looks
+   designed: plate, hairline, the mark faint in the middle, one caption. ---- */
+.frame { position: relative; overflow: hidden; border-radius: var(--r-2); background: var(--bg-2); border: 1px solid var(--line); aspect-ratio: 4 / 3; }
+.frame img { width: 100%; height: 100%; object-fit: cover; }
+.frame-empty { display: grid; place-items: center; color: var(--ink-3); }
+.frame-empty svg { width: 34%; max-width: 120px; height: auto; opacity: 0.22; }
+.frame-cap { position: absolute; left: var(--s-3); bottom: var(--s-3); padding: var(--s-1) var(--s-3); border-radius: var(--r-pill); background: color-mix(in srgb, var(--bg) 82%, transparent); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); font-size: 0.78rem; font-weight: 600; color: var(--ink-2); line-height: 1.5; max-width: calc(100% - 2 * var(--s-3)); }
+
+/* ---- vehicle card ---- */
+.vcard { display: block; font: inherit; text-decoration: none; color: inherit; background: var(--plate); border: 1px solid var(--line); border-radius: var(--r-2); overflow: hidden; box-shadow: var(--shadow); transition: transform var(--dur-1) var(--ease-out), border-color var(--dur-1); cursor: pointer; text-align: left; padding: 0; width: 100%; }
+.vcard:hover { transform: translateY(-3px); border-color: var(--line-strong); }
+.vcard .frame { border: 0; border-radius: 0; aspect-ratio: 1; }
+.vcard-body { padding: var(--s-4) var(--s-5) var(--s-5); display: grid; gap: var(--s-2); }
+.vcard-title { margin: 0; font-size: 1.3rem; font-weight: 800; font-stretch: 85%; letter-spacing: -0.02em; line-height: 1.05; }
+.vcard-meta { margin: 0; color: var(--ink-3); font-size: var(--fs-small); }
+.vcard-row { display: flex; align-items: center; justify-content: space-between; gap: var(--s-3); margin-top: var(--s-2); }
+.vcard-price { font-weight: 800; font-size: 1.2rem; font-stretch: 85%; letter-spacing: -0.02em; }
+
+/* ---- detail sheet (dialog) ---- */
+.sheet { position: fixed; inset: 0; border: 0; padding: 0; max-width: min(96vw, 1080px); max-height: 92svh; width: 100%; background: var(--plate); color: var(--plate-ink); border-radius: var(--r-3); box-shadow: 0 40px 100px -30px rgba(0,0,0,.6); margin: auto; overflow: auto; }
+.sheet::backdrop { background: rgba(10, 9, 8, 0.6); backdrop-filter: blur(6px); }
+.sheet-in { padding: var(--s-5); display: grid; gap: var(--s-5); }
+.sheet-close { position: sticky; top: var(--s-3); float: right; margin: var(--s-3) var(--s-3) 0 0; width: 44px; height: 44px; border-radius: var(--r-pill); border: 1px solid var(--line-strong); background: var(--plate); display: grid; place-items: center; cursor: pointer; z-index: 2; }
+.sheet-close svg { width: 18px; height: 18px; }
+.sheet-title { font-size: clamp(1.9rem, 6vw, 2.8rem); margin: var(--s-3) 0 var(--s-2); }
+.gallery { display: grid; gap: var(--s-2); }
+.gallery .frame.main { aspect-ratio: 4 / 5; }
+.thumbs { display: grid; grid-template-columns: repeat(6, 1fr); gap: var(--s-2); }
+.thumbs .frame { aspect-ratio: 1; border-radius: var(--r-1); }
+.thumbs button.frame { padding: 0; cursor: pointer; border: 2px solid transparent; }
+.thumbs button.frame[aria-current="true"] { border-color: var(--accent); }
+.specs { margin: var(--s-4) 0 0; padding: 0; border-top: 1px solid var(--line-strong); }
+.specs div { display: flex; justify-content: space-between; gap: var(--s-4); padding: var(--s-3) 0; border-bottom: 1px solid var(--line); }
+.specs dt { color: var(--ink-3); }
+.specs dd { margin: 0; font-weight: 700; text-align: right; }
+.sheet-cta { display: flex; flex-wrap: wrap; gap: var(--s-3); margin-top: var(--s-5); }
+@media (min-width: 860px) {
+  .sheet-in { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); padding: var(--s-6); align-items: start; }
+}
+
+/* ---- header ---- */
+.top { position: sticky; top: 0; z-index: 20; backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  background: color-mix(in srgb, var(--bg) 78%, transparent); border-bottom: 1px solid var(--line); }
+.top .wrap { display: flex; align-items: center; justify-content: space-between; min-height: var(--header-h); gap: var(--s-4); }
+.brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; min-width: 0; }
+.mark { height: 26px; width: auto; color: var(--ink); flex: none; }
+.brand-name { font-weight: 800; font-stretch: 82%; font-size: 1.2rem; letter-spacing: -0.02em; white-space: nowrap; }
+.nav { display: none; gap: var(--s-5); margin-left: auto; margin-right: var(--s-4); }
+.nav a { text-decoration: none; font-weight: 600; font-size: 0.95rem; color: var(--ink-2); }
+.nav a:hover, .nav a[aria-current="page"] { color: var(--ink); }
+@media (min-width: 860px) { .nav { display: flex; } }
+.top-actions { display: flex; align-items: center; gap: var(--s-3); }
+.top .btn { min-height: 42px; padding: 0 var(--s-5); font-size: 0.95rem; display: none; }
+@media (min-width: 760px) { .top .btn { display: inline-flex; } }
+.theme-toggle {
+  width: 42px; height: 42px; border-radius: var(--r-pill); border: 1px solid var(--line-strong); background: transparent;
+  display: inline-grid; place-items: center; cursor: pointer; -webkit-tap-highlight-color: transparent;
+}
+.theme-toggle svg { width: 20px; height: 20px; }
+.theme-toggle .sun { display: none; }
+:root[data-theme="dark"] .theme-toggle .sun { display: block; }
+:root[data-theme="dark"] .theme-toggle .moon { display: none; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .theme-toggle .sun { display: block; }
+  :root:not([data-theme="light"]) .theme-toggle .moon { display: none; }
+}
+
+/* ---- sticky call bar (phone only) ---- */
+.callbar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 30;
+  height: var(--callbar-h); padding: var(--s-3) var(--gutter);
+  padding-bottom: max(var(--s-3), env(safe-area-inset-bottom));
+  display: grid; grid-template-columns: 1fr auto; gap: var(--s-3); align-items: center;
+  background: color-mix(in srgb, var(--bg) 86%, transparent);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid var(--line);
+}
+.callbar .btn { min-height: 48px; width: 100%; }
+.callbar .btn-ghost { padding-inline: var(--s-4); }
+@media (min-width: 760px) { .callbar { display: none; } }
+
+/* ---- the closing plate ---- */
+.end { background: var(--accent); color: var(--accent-ink); padding-block: var(--s-9); overflow: clip; }
+.end .eyebrow { color: var(--accent-deep); }
+.end .eyebrow::before { background: var(--accent-ink); }
+.end .h2 em { color: var(--accent-ink); }
+.end-phone { display: block; margin: var(--s-6) 0 var(--s-4); font-size: clamp(2.6rem, 11.5vw, 8rem); font-weight: 800; font-stretch: 78%; letter-spacing: -0.045em; line-height: 0.95; text-decoration: none; color: var(--accent-ink); font-variant-numeric: tabular-nums; }
+.end p { margin: 0; color: var(--accent-deep); font-size: var(--fs-lede); max-width: var(--measure); }
+.end .btn-ink { background: var(--accent-ink); color: var(--accent); border-color: var(--accent-ink); }
+.end .btn-ghost { color: var(--accent-ink); border-color: rgba(20, 17, 15, 0.4); }
+.end-cta { display: flex; flex-wrap: wrap; gap: var(--s-3); margin-top: var(--s-6); }
+@media (min-width: 760px) { .end { padding-block: var(--s-10); } }
+
+/* ---- motion: reveal on scroll ----
+   Start state is explicit (rule 11). JS adds .in when the block enters the viewport.
+   Without JS (or with reduced motion) everything is visible. */
+.reveal { opacity: 0; transform: translateY(26px); transition: opacity var(--dur-2) var(--ease-out), transform var(--dur-2) var(--ease-out); transition-delay: var(--d, 0ms); }
+.reveal.in { opacity: 1; transform: none; }
+html.no-js .reveal, html.reduced .reveal { opacity: 1; transform: none; transition: none; }
+@media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+
+/* ---- footer ---- */
+.foot { padding: var(--s-7) 0 var(--s-8); border-top: 1px solid var(--line); color: var(--ink-3); font-size: var(--fs-small); }
+.foot .wrap { display: flex; flex-wrap: wrap; gap: var(--s-3) var(--s-6); justify-content: space-between; align-items: center; }
+.foot a { color: inherit; }
+.foot .mark { height: 22px; color: var(--ink-3); }
+
+/* ---- the Damora "See the deal" bar (preview sites only, spec: damora-site-v2-copy.md C, 2026-10-27) ----
+   Our colours, not theirs: Damora navy + off-white, Inter Tight if present. Bottom of the page on desk; on a
+   phone it sits just above the shop's own call bar so the call bar stays in thumb reach. Removed when they sign. */
+.dbar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 31;
+  display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap;
+  min-height: 44px; padding: 8px 16px; padding-bottom: max(8px, env(safe-area-inset-bottom));
+  background: #16141e; color: #f3f0f6; font-family: "Inter Tight", Inter, system-ui, sans-serif;
+  font-size: 14px; line-height: 1.3; letter-spacing: 0; font-stretch: 100%; text-align: center;
+  box-shadow: 0 -6px 24px rgba(0, 0, 0, 0.18);
+}
+.dbar strong { font-weight: 600; }
+.dbar-logo { display: inline-block; height: 13px; width: auto; vertical-align: -1px; margin: 0 2px; }
+.dbar-short { display: none; }
+/* the button is the one gold thing on the page (Nishan 2026-10-29): bold, a soft pulse so the owner knows to tap */
+.dbar a {
+  flex: none; display: inline-flex; align-items: center; min-height: 32px; padding: 0 16px; border-radius: 999px;
+  background: #f0bf45; color: #16141e; font-weight: 800; text-decoration: none; font-size: 13px; white-space: nowrap;
+  box-shadow: 0 0 0 0 rgba(240, 191, 69, 0.55); animation: dbar-pulse 2.4s ease-out infinite;
+}
+.dbar a:hover { background: #ffd166; animation-play-state: paused; }
+@keyframes dbar-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(240, 191, 69, 0.55); transform: scale(1); }
+  12% { transform: scale(1.04); }
+  24% { transform: scale(1); }
+  70%, 100% { box-shadow: 0 0 0 12px rgba(240, 191, 69, 0); }
+}
+@media (prefers-reduced-motion: reduce) { .dbar a { animation: none; } }
+@media (max-width: 759px) {
+  .dbar { bottom: var(--callbar-h); font-size: 13px; gap: 10px; padding-block: 7px; padding-bottom: 7px; box-shadow: none; border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
+  .dbar .dbar-long { display: none; }
+  .dbar .dbar-short { display: block; flex: 1 1 auto; text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .dbar-logo { height: 12px; }
+  .dbar { flex-wrap: nowrap; min-height: 40px; }
+}
+/* phone: two lines, the line that sells on top, our wordmark small under it (Nishan 2026-10-29: "say it better on mobile") */
+.dbar-by { display: block; margin-top: 2px; font-size: 11px; opacity: 0.75; }
+.dbar-by .dbar-logo { height: 10px; vertical-align: -1px; }
+
+/* room for the bar: the page ends above it, never under it (Nishan 2026-10-29: the footer credit sat under the bar on his
+   phone). --dbar-h is the bar's own height per breakpoint; scripts/leads/barcheck.mjs measures that nothing in the footer
+   is covered by a fixed bar on phone or desk. */
+:root { --dbar-h: 48px; }
+@media (max-width: 759px) { :root { --dbar-h: 60px; } }
+body.has-dbar { padding-bottom: calc(var(--callbar-h) + var(--dbar-h)); }

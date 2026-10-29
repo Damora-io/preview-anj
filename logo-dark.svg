@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 -4 240 150" width="240" height="150" role="img" aria-label="A and J Automotive">
+<path d="M0 100 L22 0 L38 0 L60 100 L44 100 L39 76 L21 76 L16 100 Z M24 62 L36 62 L30 32 Z" fill="#f4f1ea" fill-rule="evenodd"/>
+<g transform="translate(72 0) scale(1.0)">
+<path d="M84 92 C62 74 22 60 22 36 C22 18 36 8 50 8 C64 8 72 20 68 32 C61 50 30 56 27 74 C25 86 38 93 50 92 C66 90 76 78 84 60" fill="none" stroke="#ff5a1f" stroke-width="17" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M84 92 C62 74 22 60 22 36 C22 18 36 8 50 8 C64 8 72 20 68 32 C61 50 30 56 27 74 C25 86 38 93 50 92 C66 90 76 78 84 60" fill="none" stroke="#0f0e0c" stroke-width="2.6" stroke-dasharray="7 8" stroke-linecap="round"/>
+</g>
+<path transform="translate(186 0)" d="M10 0 H46 V72 C46 92 36 100 22 100 C8 100 0 92 0 80 L16 77 C17 84 19 86 23 86 C28 86 30 82 30 74 V14 H10 Z" fill="#f4f1ea"/>
+<g transform="translate(1 116) scale(1.78)" fill="none" stroke="#f4f1ea" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+<path transform="translate(0.0 0)" d="M0 16 L5 0 L10 16 M2.2 10.2 H7.8"/>
+<path transform="translate(14.1 0)" d="M0 0 V11 C0 14 2 16 5 16 C8 16 10 14 10 11 V0"/>
+<path transform="translate(28.2 0)" d="M0 0 H10 M5 0 V16"/>
+<path transform="translate(42.3 0)" d="M5 0 C8.5 0 10 2 10 5 V11 C10 14 8.5 16 5 16 C1.5 16 0 14 0 11 V5 C0 2 1.5 0 5 0 Z"/>
+<path transform="translate(56.4 0)" d="M0 16 V0 L5 9 L10 0 V16"/>
+<path transform="translate(70.5 0)" d="M5 0 C8.5 0 10 2 10 5 V11 C10 14 8.5 16 5 16 C1.5 16 0 14 0 11 V5 C0 2 1.5 0 5 0 Z"/>
+<path transform="translate(84.6 0)" d="M0 0 H10 M5 0 V16"/>
+<path transform="translate(98.7 0)" d="M1.5 0 V16"/>
+<path transform="translate(105.8 0)" d="M0 0 L5 16 L10 0"/>
+<path transform="translate(119.9 0)" d="M10 0 H0 V16 H10 M0 8 H7"/>
+</g>
+</svg>

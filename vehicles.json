@@ -1,0 +1,59 @@
+[
+  {
+    "id": "honda-hr-v-white",
+    "year": null,
+    "make": "Honda",
+    "model": "HR-V",
+    "trim": "",
+    "colour": "White",
+    "body": "Compact SUV",
+    "drive": "AWD",
+    "km": null,
+    "price": "Ask",
+    "status": "available",
+    "note": "Photographed at the shop. Year, kilometres and price: call.",
+    "photos": [
+      { "src": "photos/vehicles/vehicle-01.jpg", "thumb": "photos/web/vehicle-01-m.jpg", "caption": "Front, in the bay" },
+      { "src": "photos/vehicles/vehicle-02.jpg", "thumb": "photos/web/vehicle-02-m.jpg", "caption": "Front three-quarter, driver side" },
+      { "src": "photos/vehicles/vehicle-03.jpg", "thumb": "photos/web/vehicle-03-m.jpg", "caption": "Rear, HR-V and AWD badges" },
+      { "src": "photos/vehicles/vehicle-04.jpg", "thumb": "photos/web/vehicle-04-m.jpg", "caption": "Front seats, black cloth, automatic" },
+      { "src": "photos/vehicles/vehicle-05.jpg", "thumb": "photos/web/vehicle-05-m.jpg", "caption": "Steering wheel, audio and cruise controls" },
+      { "src": "photos/vehicles/vehicle-06.jpg", "thumb": "photos/web/vehicle-06-m.jpg", "caption": "Front three-quarter, passenger side" }
+    ]
+  },
+  {
+    "id": "sample-civic",
+    "year": 2019, "make": "Honda", "model": "Civic", "trim": "LX", "colour": "", "body": "Sedan", "drive": "",
+    "km": 98000, "price": "Ask", "status": "sample",
+    "note": "Sample listing to show the layout. Not a real car on the lot. Photos coming.",
+    "photos": []
+  },
+  {
+    "id": "sample-corolla",
+    "year": 2017, "make": "Toyota", "model": "Corolla", "trim": "LE", "colour": "", "body": "Sedan", "drive": "",
+    "km": 124000, "price": "Ask", "status": "sample",
+    "note": "Sample listing to show the layout. Not a real car on the lot. Photos coming.",
+    "photos": []
+  },
+  {
+    "id": "sample-elantra",
+    "year": 2018, "make": "Hyundai", "model": "Elantra", "trim": "GL", "colour": "", "body": "Sedan", "drive": "",
+    "km": 110000, "price": "Ask", "status": "sample",
+    "note": "Sample listing to show the layout. Not a real car on the lot. Photos coming.",
+    "photos": []
+  },
+  {
+    "id": "sample-escape",
+    "year": 2016, "make": "Ford", "model": "Escape", "trim": "SE", "colour": "", "body": "SUV", "drive": "AWD",
+    "km": 142000, "price": "Ask", "status": "sample",
+    "note": "Sample listing to show the layout. Not a real car on the lot. Photos coming.",
+    "photos": []
+  },
+  {
+    "id": "sample-rogue",
+    "year": 2020, "make": "Nissan", "model": "Rogue", "trim": "S", "colour": "", "body": "SUV", "drive": "",
+    "km": 88000, "price": "Ask", "status": "sample",
+    "note": "Sample listing to show the layout. Not a real car on the lot. Photos coming.",
+    "photos": []
+  }
+]
